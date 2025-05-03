@@ -2,8 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { BookCard } from "../components/BookCard";
-import { getBooks } from "../lib/books";
+import { BookCard } from "./components/BookCard";
+import { getBooks } from "./lib/books";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
