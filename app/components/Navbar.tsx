@@ -9,6 +9,7 @@ export function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
+    // Respect system preference or saved theme
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
@@ -37,23 +38,30 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="p-4 sticky top-0 z-20 shadow-md glassmorphic">
+      <nav className="p-4 sticky top-0 z-20 shadow-md">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
+          {/* Brand Name */}
           <div className="text-xl font-bold">
-            <Link href="/">LitShelf</Link>
+            <Link href="/" className="text-[var(--text-color)]">
+              LitShelf
+            </Link>
           </div>
+
+          {/* Desktop Menu */}
           <ul className="hidden md:flex gap-6">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:underline text-sm font-medium">
+                <Link href={item.href} className="hover:underline text-sm font-medium text-[var(--text-color)]">
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
+
+          {/* Mobile Menu Button and Theme Toggle */}
           <div className="flex items-center gap-4">
             <button
-              className="md:hidden text-2xl"
+              className="md:hidden text-2xl text-[var(--text-color)]"
               onClick={toggleSidebar}
               aria-label="Toggle sidebar menu"
             >
@@ -69,16 +77,18 @@ export function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* Sidebar for Mobile */}
       <div
-        className={`sidebar fixed top-0 right-0 h-full w-64 z-30 transform transition-transform duration-300 glassmorphic ${
+        className={`sidebar fixed top-0 right-0 h-full w-64 z-30 transform transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex justify-between items-center p-4">
-          <span className="text-xl font-bold">LitShelf</span>
+          <span className="text-xl font-bold text-[var(--text-color)]">LitShelf</span>
           <button
             onClick={toggleSidebar}
-            className="text-2xl"
+            className="text-2xl text-[var(--text-color)]"
             aria-label="Close sidebar"
           >
             <FaTimes />
@@ -89,7 +99,7 @@ export function Navbar() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="block py-2 hover:underline text-base font-medium"
+                className="block py-2 hover:underline text-base font-medium text-[var(--text-color)]"
                 onClick={toggleSidebar}
               >
                 {item.label}
@@ -98,6 +108,8 @@ export function Navbar() {
           ))}
         </ul>
       </div>
+
+      {/* Overlay for Sidebar */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
