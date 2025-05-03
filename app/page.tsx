@@ -8,15 +8,27 @@ import { getBooks } from "./lib/books";
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [recentlyViewed, setRecentlyViewed] = useState<any[]>([]);
-  const books = getBooks()
-    .filter((book) =>
+
+  // Function to shuffle an array (Fisher-Yates shuffle)
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Get and filter books, then shuffle and select top 3
+  const books = shuffleArray(
+    getBooks().filter((book) =>
       searchQuery
         ? book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
           book.genre.toLowerCase().includes(searchQuery.toLowerCase())
         : true
     )
-    .slice(0, 3);
+  ).slice(0, 3);
 
   useEffect(() => {
     const viewed = JSON.parse(localStorage.getItem("recentlyViewed") || "[]");
