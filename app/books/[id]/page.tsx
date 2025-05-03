@@ -1,6 +1,6 @@
 // app/books/[id]/page.tsx
-import BookDetailsClient from "@/components/BookDetailsClient";
-import { getBookById, getRelatedBooks } from "@/lib/books";
+import BookDetailsClient from "../../components/BookDetailsClient";
+import { getBookById, getRelatedBooks } from "../../lib/books";
 
 export default function Page({ params }: { params: { id: string } }) {
   const book = getBookById(parseInt(params.id));
