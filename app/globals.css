@@ -2,10 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
-  --text-color: #000000;
-  --font-geist-sans: "Inter", sans-serif;
-  --font-geist-mono: "Inter", monospace;
+  --foreground: #171717;
 }
 
 @theme inline {
@@ -17,106 +14,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #000000;
-    --foreground: #ffffff;
-    --text-color: #ffffff;
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
-}
-
-/* Manual dark mode class for toggle */
-.dark {
-  --background: #000000;
-  --foreground: #ffffff;
-  --text-color: #ffffff;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Navbar and Sidebar Styles */
-nav {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-nav a,
-.sidebar a {
-  color: var(--text-color);
-  transition: color 0.2s ease;
-}
-
-nav a:hover,
-.sidebar a:hover {
-  color: var(--text-color);
-  text-decoration: underline;
-}
-
-.sidebar {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-/* Glassmorphic effect */
-.glassmorphic {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.dark .glassmorphic {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.glassmorphic:hover {
-  transform: translateY(-2px);
-}
-
-/* Button and link styles */
-button,
-a {
-  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
-}
-
-button:hover,
-a:hover {
-  transform: scale(1.05);
-}
-
-/* Input and select styles */
-input,
-select {
-  background: var(--background);
-  color: var(--foreground);
-  border: 1px solid var(--foreground);
-  transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
-}
-
-input:focus,
-select:focus {
-  border-color: var(--foreground);
-  outline: none;
-}
-
-.dark input,
-.dark select {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-/* Ensure buttons use high contrast */
-button {
-  background: var(--foreground);
-  color: var(--background);
-}
-
-button:hover {
-  background: var(--foreground);
-  color: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
