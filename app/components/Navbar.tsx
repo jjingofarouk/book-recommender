@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { ModeToggle } from "./ModeToggle";
+import { useState } from "react";
 
 export function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
