@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { getBookById, getRelatedBooks } from '@/lib/books';
-import BookDetailsClient from './BookDetailsClient';
+import { getBookById, getRelatedBooks } from '../../lib/books';
+import BookDetailsClient from '../../components/BookDetailsClient';
 
 interface PageProps {
   params: {
