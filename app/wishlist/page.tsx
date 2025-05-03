@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { BookCard } from "@/components/BookCard";
+import { BookCard } from "../components/BookCard";
 import { getBooks, getWishlistStats, getReadingProgress } from "../lib/books";
 
 export default function Wishlist() {
