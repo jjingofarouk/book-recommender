@@ -1,14 +1,14 @@
-// app/globals.css
+
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
   --text-color: #171717;
-  --gray-dark: #1A1A1A;
-  --gray-light: #E5E5E5;
-  --font-geist-sans: 'Inter', sans-serif;
-  --font-geist-mono: 'Inter', monospace;
+  --gray-light: #e5e5e5;
+  --gray-dark: #1a1a1a;
+  --font-geist-sans: "Inter", sans-serif;
+  --font-geist-mono: "Inter", monospace;
 }
 
 @theme inline {
@@ -18,12 +18,23 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --text-color: #ededed;
+    --gray-light: #1a1a1a;
+    --gray-dark: #e5e5e5;
+  }
+}
+
+/* Manual dark mode class for toggle */
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
   --text-color: #ededed;
-  --gray-dark: #E5E5E5;
-  --gray-light: #1A1A1A;
+  --gray-light: #1a1a1a;
+  --gray-dark: #e5e5e5;
 }
 
 body {
@@ -33,12 +44,40 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Navbar and Sidebar Styles */
+nav {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+nav a,
+.sidebar a {
+  color: var(--text-color);
+  transition: color 0.2s ease;
+}
+
+nav a:hover,
+.sidebar a:hover {
+  color: var(--gray-dark);
+}
+
+.sidebar {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Glassmorphic effect */
 .glassmorphic {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.dark .glassmorphic {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .glassmorphic:hover {
@@ -46,25 +85,33 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-button, a {
-  color: var(--text-color);
-  transition: background-color 0.2s ease, transform 0.2s ease;
+button,
+a {
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
-button:hover, a:hover {
+button:hover,
+a:hover {
   transform: scale(1.05);
 }
 
-nav {
+/* Input and select styles */
+input,
+select {
   background: var(--background);
   color: var(--foreground);
+  border: 1px solid var(--gray-light);
+  transition: border-color 0.2s ease, background-color 0.3s ease;
 }
 
-nav a, .sidebar a {
-  color: var(--text-color);
+input:focus,
+select:focus {
+  border-color: var(--foreground);
+  outline: none;
 }
 
-.sidebar {
-  background: var(--background);
+.dark input,
+.dark select {
+  background: var(--gray-light);
   color: var(--foreground);
 }
