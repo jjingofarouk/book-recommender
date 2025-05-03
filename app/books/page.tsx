@@ -1,4 +1,3 @@
-// app/books/page.tsx
 "use client";
 import { useState } from "react";
 import { BookCard } from "../components/BookCard";
@@ -49,7 +48,7 @@ export default function Books() {
           placeholder="Search by title, author, or keywords..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-lg p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]"
+          className="w-full max-w-lg p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]"
         />
         <div className="flex flex-col sm:flex-row gap-4">
           <FilterBar
@@ -75,7 +74,7 @@ export default function Books() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] focus:outline-none"
+            className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] focus:outline-none"
           >
             <option value="">Sort By</option>
             <option value="title">Title (A-Z)</option>
@@ -90,7 +89,7 @@ export default function Books() {
         </div>
       </div>
       {sortedBooks.length === 0 ? (
-        <p className="text-lg text-[var(--gray-light)] text-center">No books match your criteria.</p>
+        <p className="text-lg text-[var(--foreground)] text-center">No books match your criteria.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {sortedBooks.map((book) => (
