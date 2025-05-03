@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { BookCard } from "../../components/BookCard";
 import { getBookById, getRelatedBooks } from "../../lib/books";
 
+// Explicitly type params for dynamic route
 export default function BookDetails({ params }: { params: { id: string } }) {
   const router = useRouter();
   const book = getBookById(parseInt(params.id));
