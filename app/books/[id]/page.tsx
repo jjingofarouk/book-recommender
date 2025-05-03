@@ -1,22 +1,34 @@
-// app/books/[id]/page.tsx
-
-import { getBookById } from "../../lib/books";
-import { notFound } from "next/navigation";
+import { getBookById, getBooks } from '../../lib/books'; // Assuming this is where you fetch data
 
 interface PageProps {
-  params: { id: string };
+  params: {
+    id: string; // `id` is a string from the URL (all dynamic routes in Next.js are strings)
+  };
 }
 
-export default async function BookPage({ params }: PageProps) {
-  const book = getBookById(params.id);
+// This function generates static parameters for the dynamic route
+export async function generateStaticParams() {
+  const books = await getBooks(); // Get all books
+  return books.map((book) => ({
+    id: book.id.toString(), // Convert book ID to a string (as URL params are strings)
+  }));
+}
 
-  if (!book) return notFound();
+// This is your page component that will receive the dynamic params
+export default async function Page({ params }: PageProps) {
+  const bookId = Number(params.id); // Convert the string `id` to a number here
+  const book = await getBookById(bookId); // Fetch the book data using the ID
+
+  if (!book) {
+    return <div>Book not found</div>; // Handle missing book case
+  }
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
-      <p className="text-lg mb-4 text-gray-600">by {book.author}</p>
+    <div>
+      <h1>{book.title}</h1>
+      <p>{book.author}</p>
       <p>{book.description}</p>
+      {/* Render more details here */}
     </div>
   );
 }
