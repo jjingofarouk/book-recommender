@@ -5,12 +5,15 @@ import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
 
 export function Navbar() {
   const [theme, setTheme] = useState("light");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    // Respect system preference or saved theme
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+    setTheme(initialTheme);
+    document.documentElement.classList.toggle("dark", initialTheme === "dark");
   }, []);
 
   const toggleTheme = () => {
@@ -20,8 +23,8 @@ export function Navbar() {
     document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const navItems = [
@@ -33,56 +36,83 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="p-4 bg-[var(--foreground)] text-[var(--background)] glassmorphic sticky top-0 z-10">
-      <div className="flex justify-between items-center max-w-6xl mx-auto">
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <Link href={item.href} className="hover:underline text-sm font-medium">
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <>
+      <nav className="p-4 sticky top-0 z-20 shadow-md">
+        <div className="flex justify-between items-center max-w-6xl mx-auto">
+          {/* Brand Name */}
+          <div className="text-xl font-bold">
+            <Link href="/">BookShelf</Link>
+          </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-2xl"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle mobile menu"
-        >
-          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </button>
-
-        {/* Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-full bg-[var(--background)] text-[var(--foreground)] glassmorphic"
-          aria-label="Toggle theme"
-        >
-          {theme === "light" ? <FaMoon className="text-lg" /> : <FaSun className="text-lg" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden">
-          <ul className="flex flex-col gap-4 mt-4">
+          {/* Desktop Menu */}
+          <ul className="hidden md:flex gap-6">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="block py-2 hover:underline text-base font-medium"
-                  onClick={toggleMobileMenu}
-                >
+                <Link href={item.href} className="hover:underline text-sm font-medium">
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
+
+          {/* Mobile Menu Button and Theme Toggle */}
+          <div className="flex items-center gap-4">
+            <button
+              className="md:hidden text-2xl"
+              onClick={toggleSidebar}
+              aria-label="Toggle sidebar menu"
+            >
+              {isSidebarOpen ? <FaTimes /> : <FaBars />}
+            </button>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-[var(--foreground)] text-[var(--background)]"
+              aria-label="Toggle theme"
+            >
+              {theme === "light" ? <FaMoon className="text-lg" /> : <FaSun className="text-lg" />}
+            </button>
+          </div>
         </div>
+      </nav>
+
+      {/* Sidebar for Mobile */}
+      <div
+        className={`sidebar fixed top-0 right-0 h-full w-64 z-30 transform transition-transform duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex justify-between items-center p-4">
+          <span className="text-xl font-bold">BookShelf</span>
+          <button
+            onClick={toggleSidebar}
+            className="text-2xl"
+            aria-label="Close sidebar"
+          >
+            <FaTimes />
+          </button>
+        </div>
+        <ul className="flex flex-col gap-4 p-4">
+          {navItems.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="block py-2 hover:underline text-base font-medium"
+                onClick={toggleSidebar}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Overlay for Sidebar */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
+          onClick={toggleSidebar}
+        />
       )}
-    </nav>
+    </>
   );
 }
