@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
 
 export function Navbar() {
   const [theme, setTheme] = useState("light");
@@ -61,7 +61,7 @@ export function Navbar() {
           className="p-2 rounded-full bg-[var(--background)] text-[var(--foreground)] glassmorphic"
           aria-label="Toggle theme"
         >
-          {theme === "light" ? "🌙" : "☀️"}
+          {theme === "light" ? <FaMoon className="text-lg" /> : <FaSun className="text-lg" />}
         </button>
       </div>
 
