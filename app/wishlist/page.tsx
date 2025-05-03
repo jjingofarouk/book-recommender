@@ -1,3 +1,4 @@
+// app/wishlist/page.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { BookCard } from "../components/BookCard";
@@ -17,7 +18,7 @@ export default function Wishlist() {
   }, []);
 
   return (
-    <div className="py-12 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto">
+    <div className="py-12 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto bg-[var(--background)]">
       <h1 className="text-4xl font-bold mb-8 text-[var(--foreground)]">Your Wishlist</h1>
       {stats && (
         <div className="glassmorphic p-6 mb-8 rounded-lg">
