@@ -1070,6 +1070,7 @@ export function getSmartRecommendations(userId: string | null, maxResults: numbe
 }
 
 // Replace the existing getPersonalizedRecommendations with this updated version
+// Replace the existing getPersonalizedRecommendations with this updated version
 export function getPersonalizedRecommendations(
   preferences: {
     genre?: string;
@@ -1089,25 +1090,25 @@ export function getPersonalizedRecommendations(
 ): Book[] {
   let filteredBooks = books;
 
-  // Apply filters based on preferences
+  // Apply filters based on preferences with optional chaining
   if (preferences.genre) {
     filteredBooks = filteredBooks.filter(
-      (book) => book.genre.toLowerCase() === preferences.genre.toLowerCase()
+      (book) => book.genre.toLowerCase() === preferences.genre!.toLowerCase()
     );
   }
   if (preferences.author) {
     filteredBooks = filteredBooks.filter(
-      (book) => book.author.toLowerCase() === preferences.author.toLowerCase()
+      (book) => book.author.toLowerCase() === preferences.author!.toLowerCase()
     );
   }
   if (preferences.language) {
     filteredBooks = filteredBooks.filter(
-      (book) => book.language.toLowerCase() === preferences.language.toLowerCase()
+      (book) => book.language.toLowerCase() === preferences.language!.toLowerCase()
     );
   }
   if (preferences.country) {
     filteredBooks = filteredBooks.filter(
-      (book) => book.countryOfOrigin.toLowerCase() === preferences.country.toLowerCase()
+      (book) => book.countryOfOrigin.toLowerCase() === preferences.country!.toLowerCase()
     );
   }
   if (preferences.tags) {
