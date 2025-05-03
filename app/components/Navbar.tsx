@@ -1,27 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { ModeToggle } from "./ModeToggle";
 
 export function Navbar() {
-  const [theme, setTheme] = useState("light");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    // Respect system preference or saved theme
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
-    setTheme(initialTheme);
-    document.documentElement.classList.toggle("dark", initialTheme === "dark");
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -66,13 +49,7 @@ export function Navbar() {
             >
               {isSidebarOpen ? <FaTimes /> : <FaBars />}
             </button>
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full bg-[var(--foreground)] text-[var(--background)]"
-              aria-label="Toggle theme"
-            >
-              {theme === "light" ? <FaMoon className="text-lg" /> : <FaSun className="text-lg" />}
-            </button>
+            <ModeToggle />
           </div>
         </div>
       </nav>
