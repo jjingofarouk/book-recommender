@@ -41,7 +41,7 @@ export function Navbar() {
         <div className="flex justify-between items-center max-w-6xl mx-auto">
           {/* Brand Name */}
           <div className="text-xl font-bold">
-            <Link href="/">BookShelf</Link>
+            <Link href="/">LitShelf</Link>
           </div>
 
           {/* Desktop Menu */}
@@ -82,7 +82,7 @@ export function Navbar() {
         }`}
       >
         <div className="flex justify-between items-center p-4">
-          <span className="text-xl font-bold">BookShelf</span>
+          <span className="text-xl font-bold">LitShelf</span>
           <button
             onClick={toggleSidebar}
             className="text-2xl"
