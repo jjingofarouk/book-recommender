@@ -1,24 +1,25 @@
-import BookDetailsClient from "../../components/BookDetailsClient";
-import { getBookById, getRelatedBooks } from "../../lib/books";
+import { notFound } from 'next/navigation';
+import { getBookById, getRelatedBooks } from '@/lib/books';
+import BookDetailsClient from './BookDetailsClient';
 
-type Props = {
+interface PageProps {
   params: {
     id: string;
   };
-};
+  searchParams?: {
+    [key: string]: string | string[] | undefined;
+  };
+}
 
-export default function Page({ params }: Props) {
+export default function BookDetailsPage({ params }: PageProps) {
   const book = getBookById(Number(params.id));
+  const relatedBooks = book ? getRelatedBooks(book.genre, book.id) : [];
 
   if (!book) {
-    return (
-      <div className="p-8 text-center text-[var(--foreground)]">
-        Book not found
-      </div>
-    );
+    return notFound();
   }
 
-  const relatedBooks = getRelatedBooks(book.genre, book.id);
-
-  return <BookDetailsClient book={book} relatedBooks={relatedBooks} />;
+  return (
+    <BookDetailsClient book={book} relatedBooks={relatedBooks} />
+  );
 }
