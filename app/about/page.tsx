@@ -69,19 +69,19 @@ export default function About() {
       name: "Shadrah Flower",
       role: "Founder & CEO",
       bio: "A passionate reader and tech enthusiast. Shadrah founded LitShelf to make book discovery simple and delightful.",
-      image: "/images/shadrah.jpg",
+      image: "/images/flower.JPG",
     },
     {
       name: "Farouk Jjingo",
       role: "Lead Developer",
       bio: "Jjingo crafts the seamless user experience at LitShelf to ensure every feature is intuitive and robust.",
-      image: "/images/farouk.jpg",
+      image: "/images/farouk.JPG",
     },
     {
       name: "Jonathan Ssemakula",
       role: "Content Curator",
       bio: "Jonathan scours the literary world to bring you the best book recommendations tailored to your interests.",
-      image: "/images/jonathan.jpg",
+      image: "/images/jonathan.JPG",
     },
   ];
 
