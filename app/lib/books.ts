@@ -227,7 +227,7 @@ export const books: Book[] = [
     edition: "1st",
     isbn: "978-0547928227",
     format: "Hardcover",
-    coverImage: "https://images-na.ssl-images-amazon.com/images/I/710+HcoP38L.jpg",
+    coverImage: "https://m.media-amazon.com/images/I/712cDO7d73L._AC_UF1000,1000_QL80_.jpg",
     tags: ["fantasy", "adventure", "classic"],
     pageCount: 310,
     targetAudience: "Young Adult",
