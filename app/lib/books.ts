@@ -317,7 +317,7 @@ export const books: Book[] = [
     edition: "Modern Library Classics",
     isbn: "978-0679734505",
     format: "Paperback",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Crimeandpunishmentcover.png",
+    coverImage: "https://images.app.goo.gl/j3kZKUpSgbAqm8NZA",
     tags: ["classic", "crime", "philosophy"],
     pageCount: 545,
     targetAudience: "Adult",
