@@ -1,18 +1,22 @@
-l// app/books/[id]/page.tsx
-import { notFound } from 'next/navigation';
-import BookDetailsClient from '../../components/BookDetailsClient';
-import { books } from '../../lib/books';
+// app/books/[id]/page.tsx
 
-export default function BookPage({ params }: { params: { id: string } }) {
-  const book = books.find(b => b.id === Number(params.id));
-  
-  if (!book) {
-    return notFound();
-  }
+import { getBookById } from "../../lib/books";
+import { notFound } from "next/navigation";
 
-  const relatedBooks = books
-    .filter(b => b.genre === book.genre && b.id !== book.id)
-    .slice(0, 3);
+interface PageProps {
+  params: { id: string };
+}
 
-  return <BookDetailsClient book={book} relatedBooks={relatedBooks} />;
+export default async function BookPage({ params }: PageProps) {
+  const book = getBookById(params.id);
+
+  if (!book) return notFound();
+
+  return (
+    <div className="p-8">
+      <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
+      <p className="text-lg mb-4 text-gray-600">by {book.author}</p>
+      <p>{book.description}</p>
+    </div>
+  );
 }
