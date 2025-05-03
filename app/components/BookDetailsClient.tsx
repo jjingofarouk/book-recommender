@@ -59,7 +59,7 @@ export default function BookDetailsClient({
             <p className="text-lg text-[var(--gray-light)]">Audience: {book.targetAudience}</p>
             {book.series && <p className="text-lg text-[var(--gray-light)]">Series: {book.series}</p>}
             <p className="text-lg text-[var(--gray-light)]">Price: ${book.price.toFixed(2)}</p>
-            <p className="text-lg text-[var(--gray-light)]">Rating: {book.averageRating.toFixed(1)}/5</p>
+            <p className="text-lg text-[var(--gray-light)]">Rating: ${book.averageRating.toFixed(1)}/5</p>
             <p className="text-lg text-[var(--gray-light)]">Reading Time: {book.readingTime}</p>
             <p className="mt-4 text-[var(--foreground)]">{book.description}</p>
             <p className="mt-2 text-[var(--foreground)]"><strong>Cultural Notes:</strong> {book.culturalNotes}</p>
