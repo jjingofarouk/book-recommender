@@ -12,12 +12,6 @@ module.exports = {
         background: "var(--background)",
         "gray-light": "var(--gray-light)",
       },
-      backgroundOpacity: {
-        5: "0.05",
-        10: "0.1",
-        20: "0.2",
-        50: "0.5",
-      },
     },
   },
   plugins: [],
