@@ -1,15 +1,15 @@
 import BookDetailsClient from "../../components/BookDetailsClient";
 import { getBookById, getRelatedBooks } from "../../lib/books";
 
-interface PageProps {
+type Props = {
   params: {
     id: string;
   };
-}
+};
 
-export default function Page({ params }: PageProps) {
+export default function Page({ params }: Props) {
   const book = getBookById(Number(params.id));
-  
+
   if (!book) {
     return (
       <div className="p-8 text-center text-[var(--foreground)]">
@@ -20,7 +20,5 @@ export default function Page({ params }: PageProps) {
 
   const relatedBooks = getRelatedBooks(book.genre, book.id);
 
-  return (
-    <BookDetailsClient book={book} relatedBooks={relatedBooks} />
-  );
+  return <BookDetailsClient book={book} relatedBooks={relatedBooks} />;
 }
