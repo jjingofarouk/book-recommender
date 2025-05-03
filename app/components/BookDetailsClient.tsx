@@ -1,4 +1,3 @@
-// app/components/BookDetailsClient.tsx
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -49,18 +48,18 @@ export default function BookDetailsClient({
           )}
           <div>
             <h1 className="text-3xl font-bold text-[var(--foreground)]">{book.title}</h1>
-            <p className="text-lg text-[var(--gray-light)]">by {book.author}</p>
-            <p className="text-lg text-[var(--gray-light)]">Genre: {book.genre}</p>
-            <p className="text-lg text-[var(--gray-light)]">Language: {book.language}</p>
-            <p className="text-lg text-[var(--gray-light)]">Country: {book.countryOfOrigin}</p>
-            <p className="text-lg text-[var(--gray-light)]">Publisher: {book.publisher}</p>
-            <p className="text-lg text-[var(--gray-light)]">Year: {book.publicationYear}</p>
-            <p className="text-lg text-[var(--gray-light)]">Format: {book.format}</p>
-            <p className="text-lg text-[var(--gray-light)]">Audience: {book.targetAudience}</p>
-            {book.series && <p className="text-lg text-[var(--gray-light)]">Series: {book.series}</p>}
-            <p className="text-lg text-[var(--gray-light)]">Price: ${book.price.toFixed(2)}</p>
-            <p className="text-lg text-[var(--gray-light)]">Rating: ${book.averageRating.toFixed(1)}/5</p>
-            <p className="text-lg text-[var(--gray-light)]">Reading Time: {book.readingTime}</p>
+            <p className="text-lg text-[var(--foreground)]">by {book.author}</p>
+            <p className="text-lg text-[var(--foreground)]">Genre: {book.genre}</p>
+            <p className="text-lg text-[var(--foreground)]">Language: {book.language}</p>
+            <p className="text-lg text-[var(--foreground)]">Country: {book.countryOfOrigin}</p>
+            <p className="text-lg text-[var(--foreground)]">Publisher: {book.publisher}</p>
+            <p className="text-lg text-[var(--foreground)]">Year: {book.publicationYear}</p>
+            <p className="text-lg text-[var(--foreground)]">Format: {book.format}</p>
+            <p className="text-lg text-[var(--foreground)]">Audience: {book.targetAudience}</p>
+            {book.series && <p className="text-lg text-[var(--foreground)]">Series: {book.series}</p>}
+            <p className="text-lg text-[var(--foreground)]">Price: ${book.price.toFixed(2)}</p>
+            <p className="text-lg text-[var(--foreground)]">Rating: {book.averageRating.toFixed(1)}/5</p>
+            <p className="text-lg text-[var(--foreground)]">Reading Time: {book.readingTime}</p>
             <p className="mt-4 text-[var(--foreground)]">{book.description}</p>
             <p className="mt-2 text-[var(--foreground)]"><strong>Cultural Notes:</strong> {book.culturalNotes}</p>
             {book.awards.length > 0 && (
@@ -77,10 +76,10 @@ export default function BookDetailsClient({
         <h2 className="text-2xl font-semibold mt-8 text-[var(--foreground)]">Reviews</h2>
         <div className="mt-4 space-y-4">
           {book.reviews.map((review, index) => (
-            <div key={index} className="p-4 border border-[var(--gray-light)] rounded-lg glassmorphic">
+            <div key={index} className="p-4 border border-[var(--foreground)] rounded-lg glassmorphic">
               <p className="font-semibold text-[var(--foreground)]">{review.user}</p>
               <p className="text-[var(--foreground)]">{review.comment}</p>
-              <p className="text-sm text-[var(--gray-light)]">Rating: {review.rating}/5</p>
+              <p className="text-sm text-[var(--foreground)]">Rating: {review.rating}/5</p>
             </div>
           ))}
         </div>
