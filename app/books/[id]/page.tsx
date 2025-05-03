@@ -1,5 +1,5 @@
 // app/books/[id]/page.tsx
-import BookDetailsClient from "../../components/BookDetailsClient";
+import BookDetailsClient from "@/components/BookDetailsClient";
 import { getBookById, getRelatedBooks } from "../../lib/books";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
