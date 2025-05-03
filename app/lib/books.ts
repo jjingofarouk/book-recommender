@@ -18,6 +18,7 @@ export interface Book {
   format: string;
   coverImage: string;
   tags: string[];
+  keywords: string[]; // <-- Added this line
   pageCount: number;
   targetAudience: string;
   series: string | null;
