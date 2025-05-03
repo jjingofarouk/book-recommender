@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getPersonalizedRecommendations } from "@/lib/books";
+import { getPersonalizedRecommendations } from "../lib/books";
 
 export function RecommendationForm({
   onSubmit,
