@@ -317,7 +317,7 @@ export const books: Book[] = [
     edition: "Modern Library Classics",
     isbn: "978-0679734505",
     format: "Paperback",
-    coverImage: "https://images.app.goo.gl/j3kZKUpSgbAqm8NZA",
+    coverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmznUhh3I3CF6W41cTDZJArd0seorVmqMMdg&usqp=CAU",
     tags: ["classic", "crime", "philosophy"],
     pageCount: 545,
     targetAudience: "Adult",
