@@ -7,36 +7,36 @@ export function Footer() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Navigation Links */}
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-semibold">Explore</h3>
-          <Link href="/" className="hover:underline" aria-label="Go to Home page">
+          <h3 className="text-lg font-semibold text-[var(--background)]">Explore</h3>
+          <Link href="/" className="hover:underline text-[var(--background)]" aria-label="Go to Home page">
             Home
           </Link>
-          <Link href="/books" className="hover:underline" aria-label="Go to Books page">
+          <Link href="/books" className="hover:underline text-[var(--background)]" aria-label="Go to Books page">
             Books
           </Link>
-          <Link href="/recommend" className="hover:underline" aria-label="Go to Recommend page">
+          <Link href="/recommend" className="hover:underline text-[var(--background)]" aria-label="Go to Recommend page">
             Recommend
           </Link>
-          <Link href="/wishlist" className="hover:underline" aria-label="Go to Wishlist page">
+          <Link href="/wishlist" className="hover:underline text-[var(--background)]" aria-label="Go to Wishlist page">
             Wishlist
           </Link>
-          <Link href="/about" className="hover:underline" aria-label="Go to About page">
+          <Link href="/about" className="hover:underline text-[var(--background)]" aria-label="Go to About page">
             About
           </Link>
-          <Link href="/contact" className="hover:underline" aria-label="Go to Contact page">
+          <Link href="/contact" className="hover:underline text-[var(--background)]" aria-label="Go to Contact page">
             Contact
           </Link>
         </div>
 
         {/* Newsletter Signup */}
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-semibold">Stay Updated</h3>
-          <p className="text-sm">Subscribe to our newsletter for book recommendations.</p>
+          <h3 className="text-lg font-semibold text-[var(--background)]">Stay Updated</h3>
+          <p className="text-sm text-[var(--background)]">Subscribe to our newsletter for book recommendations.</p>
           <div className="flex gap-2">
             <input
               type="email"
               placeholder="Enter your email"
-              className="p-2 border border-[var(--gray-light)] rounded-lg bg-transparent text-[var(--background)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--background)]"
+              className="p-2 border border-[var(--background)] rounded-lg bg-transparent text-[var(--background)] placeholder-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--background)]"
               aria-label="Email for newsletter"
             />
             <button
@@ -50,13 +50,13 @@ export function Footer() {
 
         {/* Social Media */}
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-semibold">Follow Us</h3>
+          <h3 className="text-lg font-semibold text-[var(--background)]">Follow Us</h3>
           <div className="flex gap-4">
             <a
               href="https://x.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline text-[var(--background)]"
               aria-label="Follow us on X"
             >
               <Image
@@ -64,14 +64,14 @@ export function Footer() {
                 alt="X icon"
                 width={24}
                 height={24}
-                className="invert"
+                className="dark:invert"
               />
             </a>
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline text-[var(--background)]"
               aria-label="Follow us on GitHub"
             >
               <Image
@@ -79,13 +79,13 @@ export function Footer() {
                 alt="GitHub icon"
                 width={24}
                 height={24}
-                className="invert"
+                className="dark:invert"
               />
             </a>
           </div>
         </div>
       </div>
-      <div className="mt-8 text-center text-sm">
+      <div className="mt-8 text-center text-sm text-[var(--background)]">
         <p>© 2025 LitShelf. All rights reserved.</p>
       </div>
     </footer>
