@@ -29,7 +29,7 @@ export interface Book {
   reviews: Review[];
 }
 
-const books: Book[] = [
+export const books: Book[] = [
   {
     id: 1,
     title: "The Great Gatsby",
