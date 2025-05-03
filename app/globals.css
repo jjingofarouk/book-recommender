@@ -1,12 +1,9 @@
-
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --text-color: #171717;
-  --gray-light: #e5e5e5;
-  --gray-dark: #1a1a1a;
+  --foreground: #000000;
+  --text-color: #000000;
   --font-geist-sans: "Inter", sans-serif;
   --font-geist-mono: "Inter", monospace;
 }
@@ -20,21 +17,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --text-color: #ededed;
-    --gray-light: #1a1a1a;
-    --gray-dark: #e5e5e5;
+    --background: #000000;
+    --foreground: #ffffff;
+    --text-color: #ffffff;
   }
 }
 
 /* Manual dark mode class for toggle */
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --text-color: #ededed;
-  --gray-light: #1a1a1a;
-  --gray-dark: #e5e5e5;
+  --background: #000000;
+  --foreground: #ffffff;
+  --text-color: #ffffff;
 }
 
 body {
@@ -58,7 +51,8 @@ nav a,
 
 nav a:hover,
 .sidebar a:hover {
-  color: var(--gray-dark);
+  color: var(--text-color);
+  text-decoration: underline;
 }
 
 .sidebar {
@@ -70,21 +64,21 @@ nav a:hover,
 .glassmorphic {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .dark .glassmorphic {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .glassmorphic:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Button and link styles */
 button,
 a {
   transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
@@ -100,8 +94,8 @@ input,
 select {
   background: var(--background);
   color: var(--foreground);
-  border: 1px solid var(--gray-light);
-  transition: border-color 0.2s ease, background-color 0.3s ease;
+  border: 1px solid var(--foreground);
+  transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 input:focus,
@@ -112,6 +106,17 @@ select:focus {
 
 .dark input,
 .dark select {
-  background: var(--gray-light);
+  background: var(--background);
   color: var(--foreground);
+}
+
+/* Ensure buttons use high contrast */
+button {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+button:hover {
+  background: var(--foreground);
+  color: var(--background);
 }
