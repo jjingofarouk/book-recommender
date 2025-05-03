@@ -1728,7 +1728,7 @@ export const books: Book[] = [
     title: "Understanding Media: The Extensions of Man",
     author: "Marshall McLuhan",
     genre: "Media Theory",
-    description: "Seminal work introducing the concept that "the medium is the message" and analyzing media effects.",
+    description: "Seminal work introducing the concept that the medium is the message and analyzing media effects.",
     language: "English",
     countryOfOrigin: "Canada",
     publisher: "McGraw-Hill",
