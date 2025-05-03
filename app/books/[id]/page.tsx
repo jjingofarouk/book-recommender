@@ -1,5 +1,5 @@
-
-import { getBookById, getBooks } from '../../lib/books';
+// books.ts (library for fetching books)
+import { getBooks, getBookById } from '../../lib/books';
 
 interface Book {
   id: number;
@@ -12,21 +12,23 @@ interface Book {
   publishedDate: string;
 }
 
+// `generateStaticParams` function to generate static paths for each book
 export async function generateStaticParams() {
   const books = await getBooks();
   return books.map((book) => ({
-    id: book.id.toString(),
+    id: book.id.toString(), // Ensure ID is returned as a string
   }));
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { id: string }
-}) {
-  const bookId = Number(params.id);
-  const book = await getBookById(bookId);
+interface PageProps {
+  params: { id: string };
+}
 
+export default async function Page({ params }: PageProps) {
+  const bookId = Number(params.id); // Convert the ID from string to number
+  const book = await getBookById(bookId); // Fetch book by ID
+
+  // Handle the case where the book is not found
   if (!book) {
     return <div>Book not found</div>;
   }
