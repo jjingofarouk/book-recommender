@@ -1,26 +1,23 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #ffffff;
+    --background: #1a1a1a;
+    --gray-light: #d1d5db;
+  }
+
+  .dark {
+    --foreground: #1a1a1a;
+    --background: #ffffff;
+    --gray-light: #4b5563;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glassmorphic {
+    @apply bg-opacity-10 backdrop-blur-sm border border-opacity-10 border-[var(--gray-light)] shadow-sm;
+  }
 }
