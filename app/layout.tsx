@@ -4,7 +4,7 @@ import { Footer } from "./components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Book Recommendation System",
+  title: "LitShelf",
   description: "Find your next favorite book with our simple recommendation system.",
 };
 
@@ -15,9 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-[family-name:var(--font-geist-sans)] bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <body className="bg-[var(--background)] text-[var(--foreground)]">
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen px-4 sm:px-8 lg:px-16">{children}</main>
         <Footer />
       </body>
     </html>
