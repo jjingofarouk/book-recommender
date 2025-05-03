@@ -31,7 +31,7 @@ export function BookCard({ book }: BookCardProps) {
         <p className="text-sm text-[var(--gray-light)]">Audience: {book.targetAudience}</p>
         {book.series && <p className="text-sm text-[var(--gray-light)]">Series: {book.series}</p>}
         <p className="text-sm text-[var(--gray-light)]">Price: ${book.price.toFixed(2)}</p>
-        <p className="text-sm text-[var(--gray-light)]">Rating: {book.averageRating.toFixed(1)}/5</p>
+        <p className="text-sm text-[var(--gray-light)]">Rating: ${book.averageRating.toFixed(1)}/5</p>
         <p className="text-sm text-[var(--gray-light)]">Reading Time: {book.readingTime}</p>
         {book.awards.length > 0 && (
           <p className="text-sm text-[var(--gray-light)]">Awards: {book.awards.join(", ")}</p>
