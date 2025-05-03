@@ -1,3 +1,10 @@
+// lib/books.ts
+export interface Review {
+  user: string;
+  comment: string;
+  rating: number;
+}
+
 export interface Book {
   id: number;
   title: string;
@@ -8,22 +15,18 @@ export interface Book {
   countryOfOrigin: string;
   publisher: string;
   publicationYear: number;
-  edition: string;
-  isbn: string;
-  format: string; // e.g., Hardcover, Paperback, eBook
+  format: string;
   coverImage: string;
   tags: string[];
   pageCount: number;
-  targetAudience: string; // e.g., Adult, Young Adult, Children
-  series: string | null; // e.g., "Dune Series" or null
-  keywords: string[];
-  availability: string; // e.g., In Stock, Out of Stock, Pre-order
-  price: number; // in USD
+  targetAudience: string;
+  series: string | null;
+  price: number;
   averageRating: number;
-  readingTime: string; // e.g., "5 hours"
+  readingTime: string;
   awards: string[];
-  culturalNotes: string; // Cultural context of the book
-  reviews: { user: string; comment: string; rating: number }[];
+  culturalNotes: string;
+  reviews: Review[];
 }
 
 const books: Book[] = [
@@ -212,6 +215,22 @@ const books: Book[] = [
 export function getBooks(): Book[] {
   return books;
 }
+
+// Add this new function for server components
+export async function fetchBookById(id: number): Promise<Book | undefined> {
+  // Simulate API call delay
+  await new Promise(resolve => setTimeout(resolve, 50));
+  return books.find(book => book.id === id);
+}
+
+// Add this for related books
+export async function fetchRelatedBooks(genre: string, excludeId: number): Promise<Book[]> {
+  await new Promise(resolve => setTimeout(resolve, 50));
+  return books
+    .filter(book => book.genre === genre && book.id !== excludeId)
+    .slice(0, 3);
+}
+
 
 export function getBookById(id: number): Book | undefined {
   return books.find((book) => book.id === id);
