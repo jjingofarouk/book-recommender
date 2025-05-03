@@ -1,8 +1,9 @@
 
+
+
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Home, BookOpen, Star, Heart, User, Mail, Menu, X } from "lucide-react";
 
 export function Navbar() {
   const [theme, setTheme] = useState("light");
@@ -26,12 +27,12 @@ export function Navbar() {
   };
 
   const menuItems = [
-    { href: "/", label: "Home", icon: <Home size={20} /> },
-    { href: "/books", label: "Books", icon: <BookOpen size={20} /> },
-    { href: "/recommend", label: "Recommend", icon: <Star size={20} /> },
-    { href: "/wishlist", label: "Wishlist", icon: <Heart size={20} /> },
-    { href: "/about", label: "About", icon: <User size={20} /> },
-    { href: "/contact", label: "Contact", icon: <Mail size={20} /> },
+    { href: "/", label: "Home", icon: "🏠" },
+    { href: "/books", label: "Books", icon: "📚" },
+    { href: "/recommend", label: "Recommend", icon: "⭐" },
+    { href: "/wishlist", label: "Wishlist", icon: "❤️" },
+    { href: "/about", label: "About", icon: "👤" },
+    { href: "/contact", label: "Contact", icon: "✉️" },
   ];
 
   return (
@@ -42,7 +43,7 @@ export function Navbar() {
           className="md:hidden p-2"
           onClick={toggleMenu}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? "✕" : "☰"}
         </button>
 
         {/* Mobile dropdown menu */}
@@ -56,7 +57,7 @@ export function Navbar() {
                     className="flex items-center gap-3"
                     onClick={() => setIsOpen(false)}
                   >
-                    {item.icon}
+                    <span className="text-lg">{item.icon}</span>
                     <span>{item.label}</span>
                   </Link>
                 </li>
@@ -74,7 +75,7 @@ export function Navbar() {
                   href={item.href} 
                   className="flex flex-col items-center md:flex-row md:gap-2"
                 >
-                  <span className="md:hidden">{item.icon}</span>
+                  <span className="text-lg md:text-base">{item.icon}</span>
                   <span className="text-xs md:text-base">{item.label}</span>
                 </Link>
               </li>
