@@ -19,7 +19,7 @@ export interface Book {
   isbn: string; // <-- Add this
   availability: string; // <-- Add this
   format: string;
-  coverImage: string;
+  coverImage?: string;
   tags: string[];
   keywords: string[];
   pageCount: number;
