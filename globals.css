@@ -1,0 +1,45 @@
+:root {
+  --font-geist-sans: 'Inter', sans-serif;
+  --font-geist-mono: 'Inter', monospace;
+  --foreground: #000000;
+  --background: #FFFFFF;
+  --gray-dark: #1A1A1A;
+  --gray-light: #E5E5E5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground: #FFFFFF;
+    --background: #000000;
+    --gray-dark: #E5E5E5;
+    --gray-light: #1A1A1A;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.glassmorphic {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glassmorphic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+button, a {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover, a:hover {
+  transform: scale(1.05);
+}
