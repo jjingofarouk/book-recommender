@@ -1,7 +1,6 @@
-// app/wishlist/page.tsx
 "use client";
 import { useState, useEffect } from "react";
-import { BookCard } from "../components/BookCard";
+import { BookCard } from "@/components/BookCard";
 import { getBooks, getWishlistStats, getReadingProgress } from "../lib/books";
 
 export default function Wishlist() {
@@ -47,7 +46,7 @@ export default function Wishlist() {
         </div>
       )}
       {wishlistBooks.length === 0 ? (
-        <p className="text-lg text-[var(--gray-light)]">Your wishlist is empty.</p>
+        <p className="text-lg text-[var(--foreground)]">Your wishlist is empty.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {wishlistBooks.map((book) => (
