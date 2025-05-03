@@ -15,9 +15,3 @@
     --gray-light: #4b5563;
   }
 }
-
-@layer utilities {
-  .glassmorphic {
-    @apply bg-[var(--foreground)]/10 border border-[var(--gray-light)]/20 shadow-sm;
-  }
-}
