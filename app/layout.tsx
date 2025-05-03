@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import "./globals.css";
+import { ThemeProvider } from "./components/theme-provider";
 
 export const metadata: Metadata = {
   title: "LitShelf",
@@ -14,11 +15,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body className="bg-[var(--background)] text-[var(--foreground)]">
-        <Navbar />
-        <main className="min-h-screen px-4 sm:px-8 lg:px-16">{children}</main>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main className="min-h-screen px-4 sm:px-8 lg:px-16">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
