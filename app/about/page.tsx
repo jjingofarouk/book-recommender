@@ -30,19 +30,19 @@ export default function About() {
 
   const team = [
     {
-      name: "Jane Doe",
+      name: "Farouk Jjingo",
       role: "Founder & CEO",
-      bio: "A passionate reader and tech enthusiast, Jane founded LitShelf to make book discovery simple and delightful.",
+      bio: "A passionate reader and tech enthusiast. Jjingo founded LitShelf to make book discovery simple and delightful.",
     },
     {
-      name: "John Smith",
+      name: "Farouk Jjingo",
       role: "Lead Developer",
-      bio: "John crafts the seamless user experience at LitShelf, ensuring every feature is intuitive and robust.",
+      bio: "Jjingo crafts the seamless user experience at LitShelf to ensure every feature is intuitive and robust.",
     },
     {
-      name: "Emily Brown",
+      name: "Jonathan Ssemakula",
       role: "Content Curator",
-      bio: "Emily scours the literary world to bring you the best book recommendations tailored to your interests.",
+      bio: "Jonathan scours the literary world to bring you the best book recommendations tailored to your interests.",
     },
   ];
 
