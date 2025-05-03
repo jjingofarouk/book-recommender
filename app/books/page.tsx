@@ -41,7 +41,7 @@ export default function Books() {
     : filteredBooks;
 
   return (
-    <div className="py-12 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto">
+    <div className="py-12 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto bg-[var(--background)]">
       <h1 className="text-4xl font-bold mb-8 text-[var(--foreground)]">Browse Books</h1>
       <div className="flex flex-col gap-6 mb-10">
         <input
@@ -49,7 +49,7 @@ export default function Books() {
           placeholder="Search by title, author, or keywords..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-lg p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]"
+          className="w-full max-w-lg p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]"
         />
         <div className="flex flex-col sm:flex-row gap-4">
           <FilterBar
@@ -75,7 +75,7 @@ export default function Books() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)] focus:outline-none"
+            className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] focus:outline-none"
           >
             <option value="">Sort By</option>
             <option value="title">Title (A-Z)</option>
