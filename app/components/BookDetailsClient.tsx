@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { BookCard } from './BookCard';
-import type { Book } from '@/lib/books';
+import type { Book } from '../lib/books';
 
 export default function BookDetailsClient({ 
   book,
