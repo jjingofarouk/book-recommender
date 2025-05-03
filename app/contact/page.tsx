@@ -43,7 +43,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="py-12 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto">
+    <div className="py-12 px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto bg-[var(--background)]">
       <h1 className="text-4xl font-bold mb-8 text-[var(--foreground)]">
         Contact Us
       </h1>
@@ -58,8 +58,8 @@ export default function Contact() {
                 placeholder="Name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
-                  errors.name ? "border-red-500" : "border-[var(--gray-light)]"
+                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
+                  errors.name ? "border-red-500" : "border-[var(--foreground)]"
                 }`}
                 aria-label="Your name"
               />
@@ -74,8 +74,8 @@ export default function Contact() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
-                  errors.email ? "border-red-500" : "border-[var(--gray-light)]"
+                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
+                  errors.email ? "border-red-500" : "border-[var(--foreground)]"
                 }`}
                 aria-label="Your email"
               />
@@ -92,8 +92,8 @@ export default function Contact() {
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
-                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
-                  errors.phone ? "border-red-500" : "border-[var(--gray-light)]"
+                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
+                  errors.phone ? "border-red-500" : "border-[var(--foreground)]"
                 }`}
                 aria-label="Your phone number"
               />
@@ -110,8 +110,8 @@ export default function Contact() {
                 placeholder="Subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
-                  errors.subject ? "border-red-500" : "border-[var(--gray-light)]"
+                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
+                  errors.subject ? "border-red-500" : "border-[var(--foreground)]"
                 }`}
                 aria-label="Subject of your message"
               />
@@ -125,8 +125,8 @@ export default function Contact() {
                 placeholder="Message"
                 value={formData.message}
                 onChange={handleChange}
-                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--gray-light)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
-                  errors.message ? "border-red-500" : "border-[var(--gray-light)]"
+                className={`w-full p-3 border rounded-lg bg-transparent text-[var(--foreground)] placeholder-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] ${
+                  errors.message ? "border-red-500" : "border-[var(--foreground)]"
                 }`}
                 rows={5}
                 aria-label="Your message"
@@ -137,7 +137,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="rounded-full bg-[var(--foreground)] text-[var(--background)] px-6 py-2 font-medium glassmorphic hover:bg-[var(--gray-light)] transition-colors"
+              className="rounded-full bg-[var(--foreground)] text-[var(--background)] px-6 py-2 font-medium glassmorphic"
               aria-label="Submit contact form"
             >
               Send Message
@@ -155,7 +155,7 @@ export default function Contact() {
               <strong>Email:</strong>{" "}
               <a
                 href="mailto:support@litshelf.com"
-                className="hover:underline"
+                className="hover:underline text-[var(--text-color)]"
                 aria-label="Email support"
               >
                 support@litshelf.com
@@ -165,7 +165,7 @@ export default function Contact() {
               <strong>Phone:</strong>{" "}
               <a
                 href="tel:+1234567890"
-                className="hover:underline"
+                className="hover:underline text-[var(--text-color)]"
                 aria-label="Call support"
               >
                 +1 (234) 567-890
@@ -183,7 +183,7 @@ export default function Contact() {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline text-[var(--text-color)]"
               aria-label="Follow us on Twitter"
             >
               <Image
@@ -191,14 +191,14 @@ export default function Contact() {
                 alt="Twitter icon"
                 width={24}
                 height={24}
-                className="invert"
+                className="dark:invert"
               />
             </a>
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline text-[var(--text-color)]"
               aria-label="Follow us on GitHub"
             >
               <Image
@@ -206,7 +206,7 @@ export default function Contact() {
                 alt="GitHub icon"
                 width={24}
                 height={24}
-                className="invert"
+                className="dark:invert"
               />
             </a>
           </div>
