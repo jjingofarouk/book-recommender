@@ -35,7 +35,7 @@ export default function BookDetailsClient({
   };
 
   return (
-    <div className="py-12 px-4 sm:px-8 lg:px-16">
+    <div className="py-12 px-4 sm:px-8 lg:px-16 bg-[var(--background)]">
       <div className="max-w-4xl mx-auto glassmorphic p-8">
         <div className="flex flex-col sm:flex-row gap-8">
           {book.coverImage && (
