@@ -22,11 +22,11 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="p-4 bg-white dark:bg-gray-900 shadow-md w-full">
+      <nav className="p-4 bg-[var(--background)] shadow-md w-full">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
           {/* Brand Name */}
           <div className="text-xl font-bold">
-            <Link href="/" className="text-[var(--text-color)]">
+            <Link href="/" className="text-[var(--foreground)]">
               LitShelf
             </Link>
           </div>
@@ -37,7 +37,7 @@ export function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="hover:underline text-sm font-medium text-[var(--text-color)]"
+                  className="hover:underline text-sm font-medium text-[var(--foreground)]"
                 >
                   {item.label}
                 </Link>
@@ -48,7 +48,7 @@ export function Navbar() {
           {/* Mobile Menu Button and Theme Toggle */}
           <div className="flex items-center gap-4">
             <button
-              className="md:hidden text-2xl text-[var(--text-color)]"
+              className="md:hidden text-2xl text-[var(--foreground)]"
               onClick={toggleSidebar}
               aria-label={isSidebarOpen ? "Close sidebar menu" : "Open sidebar menu"}
             >
@@ -61,17 +61,17 @@ export function Navbar() {
 
       {/* Sidebar for Mobile */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-900 transform transition-transform duration-300 z-50 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-[var(--background)] transform transition-transform duration-300 z-50 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex justify-between items-center p-4">
-          <span className="text-xl font-bold text-[var(--text-color)]">
+          <span className="text-xl font-bold text-[var(--foreground)]">
             LitShelf
           </span>
           <button
             onClick={toggleSidebar}
-            className="text-2xl text-[var(--text-color)]"
+            className="text-2xl text-[var(--foreground)]"
             aria-label="Close sidebar"
           >
             <FaTimes />
@@ -82,7 +82,7 @@ export function Navbar() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="block py-2 hover:underline text-base font-medium text-[var(--text-color)]"
+                className="block py-2 hover:underline text-base font-medium text-[var(--foreground)]"
                 onClick={toggleSidebar}
               >
                 {item.label}
