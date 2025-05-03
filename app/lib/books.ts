@@ -377,7 +377,7 @@ export const books: Book[] = [
     edition: "1st",
     isbn: "978-1594631931",
     format: "Paperback",
-    coverImage: "https://images-na.ssl-images-amazon.com/images/I/81IzbB4wJxL.jpg",
+    coverImage: "https://www.amazon.in/Kite-Runner-Khaled-Hosseini/dp/1408850257#immersive-view_1746308911747",
     tags: ["historical", "friendship", "redemption"],
     pageCount: 371,
     targetAudience: "Adult",
