@@ -22,7 +22,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="p-4 sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
+      <nav className="p-4 bg-white dark:bg-gray-900 shadow-md w-full">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
           {/* Brand Name */}
           <div className="text-xl font-bold">
@@ -61,7 +61,7 @@ export function Navbar() {
 
       {/* Sidebar for Mobile */}
       <div
-        className={`sidebar fixed top-0 right-0 h-full w-64 z-50 bg-white dark:bg-gray-900 transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-900 transform transition-transform duration-300 z-50 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
