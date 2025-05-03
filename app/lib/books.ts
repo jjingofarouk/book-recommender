@@ -892,6 +892,184 @@ export function getRecommendations(
     .slice(0, 3);
 }
 
+// Helper function: Calculate cosine similarity between two vectors
+function cosineSimilarity(vecA: number[], vecB: number[]): number {
+  const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
+  const magnitudeA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
+  const magnitudeB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
+  if (magnitudeA === 0 || magnitudeB === 0) return 0;
+  return dotProduct / (magnitudeA * magnitudeB);
+}
+
+// Helper function: Build a feature vector for a book based on genres, tags, keywords
+function buildBookFeatureVector(book: Book, allGenres: string[], allTags: string[], allKeywords: string[]): number[] {
+  const vector: number[] = [];
+
+  // Genres: 1 if the book matches the genre, 0 otherwise
+  allGenres.forEach((genre) => {
+    vector.push(book.genre.toLowerCase() === genre.toLowerCase() ? 1 : 0);
+  });
+
+  // Tags: 1 if the book has the tag, 0 otherwise
+  allTags.forEach((tag) => {
+    vector.push(book.tags.includes(tag) ? 1 : 0);
+  });
+
+  // Keywords: 1 if the book has the keyword, 0 otherwise
+  allKeywords.forEach((keyword) => {
+    vector.push(book.keywords.includes(keyword) ? 1 : 0);
+  });
+
+  return vector;
+}
+
+// Helper function: Build user preference vector based on their interactions
+function buildUserPreferenceVector(
+  userBooks: Book[],
+  allGenres: string[],
+  allTags: string[],
+  allKeywords: string[]
+): number[] {
+  const vector: number[] = new Array(allGenres.length + allTags.length + allKeywords.length).fill(0);
+
+  userBooks.forEach((book) => {
+    allGenres.forEach((genre, i) => {
+      if (book.genre.toLowerCase() === genre.toLowerCase()) {
+        vector[i] += 1;
+      }
+    });
+    allTags.forEach((tag, i) => {
+      if (book.tags.includes(tag)) {
+        vector[i + allGenres.length] += 1;
+      }
+    });
+    allKeywords.forEach((keyword, i) => {
+      if (book.keywords.includes(keyword)) {
+        vector[i + allGenres.length + allTags.length] += 1;
+      }
+    });
+  });
+
+  // Normalize the vector by the number of user books to avoid bias from interaction volume
+  return vector.map((val) => (userBooks.length > 0 ? val / userBooks.length : 0));
+}
+
+// Main recommendation function: Hybrid CF + CBF
+export function getSmartRecommendations(userId: string | null, maxResults: number = 6): Book[] {
+  const allBooks = getBooks();
+
+  // Extract unique genres, tags, and keywords for vectorization
+  const allGenres = [...new Set(allBooks.map((book) => book.genre))];
+  const allTags = [...new Set(allBooks.flatMap((book) => book.tags))];
+  const allKeywords = [...new Set(allBooks.flatMap((book) => book.keywords))];
+
+  // Get user interactions from localStorage
+  const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+  const recentlyViewed = JSON.parse(localStorage.getItem("recentlyViewed") || "[]");
+  const userBooks = allBooks.filter((book) => [...wishlist, ...recentlyViewed].includes(book.id));
+
+  // Default preferences for new users
+  let userPrefs = {
+    genres: ["Fiction", "Dystopian", "Fantasy"],
+    authors: ["J.R.R. Tolkien", "George Orwell"],
+    avgPages: 300,
+    avgRating: 4,
+    languages: ["English"],
+    tags: ["classic", "adventure"],
+    keywords: ["quest", "freedom"],
+  };
+
+  // If user has interactions, infer preferences
+  if (userBooks.length > 0) {
+    const genreCounts = userBooks.reduce((acc, book) => {
+      acc[book.genre] = (acc[book.genre] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    userPrefs.genres = Object.entries(genreCounts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([genre]) => genre)
+      .slice(0, 3);
+
+    userPrefs.authors = [...new Set(userBooks.map((book) => book.author))].slice(0, 3);
+    userPrefs.avgPages =
+      userBooks.reduce((sum, book) => sum + book.pageCount, 0) / userBooks.length || 300;
+    userPrefs.avgRating =
+      userBooks.reduce((sum, book) => sum + book.averageRating, 0) / userBooks.length || 4;
+    userPrefs.languages = [...new Set(userBooks.map((book) => book.language))].slice(0, 2);
+    userPrefs.tags = userBooks
+      .flatMap((book) => book.tags)
+      .filter((tag, i, arr) => arr.indexOf(tag) === i)
+      .slice(0, 5);
+    userPrefs.keywords = userBooks
+      .flatMap((book) => book.keywords)
+      .filter((kw, i, arr) => arr.indexOf(kw) === i)
+      .slice(0, 5);
+  }
+
+  // Build user preference vector for content-based filtering
+  const userVector = buildUserPreferenceVector(userBooks, allGenres, allTags, allKeywords);
+
+  // Build feature vectors for all books
+  const bookVectors = allBooks.map((book) =>
+    buildBookFeatureVector(book, allGenres, allTags, allKeywords)
+  );
+
+  // Content-Based Filtering: Calculate similarity between user and each book
+  const contentScores = allBooks.map((book, i) => ({
+    book,
+    score: cosineSimilarity(userVector, bookVectors[i]),
+  }));
+
+  // Collaborative Filtering: Simulate user similarity (since we don't have multiple users, use wishlist as proxy)
+  const userSimilarityScores: { book: Book; score: number }[] = [];
+  allBooks.forEach((book) => {
+    if (wishlist.includes(book.id)) return; // Skip books already in wishlist
+    const similarBooks = allBooks.filter(
+      (b) => wishlist.includes(b.id) && b.genre === book.genre
+    );
+    const cfScore =
+      similarBooks.reduce((sum, b) => sum + b.averageRating, 0) / (similarBooks.length || 1);
+    userSimilarityScores.push({ book, score: cfScore });
+  });
+
+  // Combine scores: Hybrid approach (60% CBF, 40% CF)
+  const hybridScores = allBooks.map((book) => {
+    const contentScore =
+      contentScores.find((s) => s.book.id === book.id)?.score || 0;
+    const collabScore =
+      userSimilarityScores.find((s) => s.book.id === book.id)?.score || 0;
+    const normalizedCollabScore = collabScore / 5; // Normalize to 0-1 scale (ratings are 0-5)
+    const hybridScore = 0.6 * contentScore + 0.4 * normalizedCollabScore;
+
+    // Add boosts for user preferences
+    let finalScore = hybridScore;
+    if (userPrefs.genres.includes(book.genre)) finalScore += 0.2;
+    if (userPrefs.authors.includes(book.author)) finalScore += 0.2;
+    if (userPrefs.languages.includes(book.language)) finalScore += 0.1;
+    if (Math.abs(book.pageCount - userPrefs.avgPages) < 100) finalScore += 0.1;
+    if (book.averageRating >= userPrefs.avgRating) finalScore += 0.1;
+
+    return { book, score: finalScore };
+  });
+
+  // Sort by score and ensure diversity
+  const sortedBooks = hybridScores.sort((a, b) => b.score - a.score);
+  const diverseBooks: Book[] = [];
+  const genreCount: Record<string, number> = {};
+
+  for (const { book } of sortedBooks) {
+    if (diverseBooks.length >= maxResults) break;
+    if (wishlist.includes(book.id) || recentlyViewed.includes(book.id)) continue; // Skip already interacted books
+    genreCount[book.genre] = (genreCount[book.genre] || 0) + 1;
+    if (genreCount[book.genre] <= 2) { // Max 2 books per genre for diversity
+      diverseBooks.push(book);
+    }
+  }
+
+  return diverseBooks;
+}
+
+// Replace the existing getPersonalizedRecommendations with this updated version
 export function getPersonalizedRecommendations(
   preferences: {
     genre?: string;
@@ -909,26 +1087,98 @@ export function getPersonalizedRecommendations(
     keywords?: string[];
   }
 ): Book[] {
-  return books
-    .filter(
-      (book) =>
-        (!preferences.genre || book.genre.toLowerCase() === preferences.genre.toLowerCase()) &&
-        (!preferences.author || book.author.toLowerCase() === preferences.author.toLowerCase()) &&
-        (!preferences.language || book.language.toLowerCase() === preferences.language.toLowerCase()) &&
-        (!preferences.country || book.countryOfOrigin.toLowerCase() === preferences.country.toLowerCase()) &&
-        (!preferences.tags || preferences.tags.every((tag) => book.tags.includes(tag))) &&
-        (!preferences.minRating || book.averageRating >= preferences.minRating) &&
-        (!preferences.maxPages || book.pageCount <= preferences.maxPages) &&
-        (!preferences.audience || book.targetAudience.toLowerCase() === preferences.audience.toLowerCase()) &&
-        (!preferences.format || book.format.toLowerCase() === preferences.format.toLowerCase()) &&
-        (!preferences.series || book.series?.toLowerCase() === preferences.series?.toLowerCase()) &&
-        (!preferences.minPrice || book.price >= preferences.minPrice) &&
-        (!preferences.maxPrice || book.price <= preferences.maxPrice) &&
-        (!preferences.keywords || preferences.keywords.every((keyword) =>
-          book.keywords.some((k) => k.toLowerCase().includes(keyword.toLowerCase()))
-        ))
-    )
-    .sort((a, b) => b.averageRating - a.averageRating)
+  let filteredBooks = books;
+
+  // Apply filters based on preferences
+  if (preferences.genre) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.genre.toLowerCase() === preferences.genre.toLowerCase()
+    );
+  }
+  if (preferences.author) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.author.toLowerCase() === preferences.author.toLowerCase()
+    );
+  }
+  if (preferences.language) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.language.toLowerCase() === preferences.language.toLowerCase()
+    );
+  }
+  if (preferences.country) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.countryOfOrigin.toLowerCase() === preferences.country.toLowerCase()
+    );
+  }
+  if (preferences.tags) {
+    filteredBooks = filteredBooks.filter((book) =>
+      preferences.tags!.every((tag) => book.tags.includes(tag))
+    );
+  }
+  if (preferences.minRating) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.averageRating >= preferences.minRating!
+    );
+  }
+  if (preferences.maxPages) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.pageCount <= preferences.maxPages!
+    );
+  }
+  if (preferences.audience) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.targetAudience.toLowerCase() === preferences.audience!.toLowerCase()
+    );
+  }
+  if (preferences.format) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.format.toLowerCase() === preferences.format!.toLowerCase()
+    );
+  }
+  if (preferences.series) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.series?.toLowerCase() === preferences.series!.toLowerCase()
+    );
+  }
+  if (preferences.minPrice) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.price >= preferences.minPrice!
+    );
+  }
+  if (preferences.maxPrice) {
+    filteredBooks = filteredBooks.filter(
+      (book) => book.price <= preferences.maxPrice!
+    );
+  }
+  if (preferences.keywords) {
+    filteredBooks = filteredBooks.filter((book) =>
+      preferences.keywords!.every((keyword) =>
+        book.keywords.some((k) => k.toLowerCase().includes(keyword.toLowerCase()))
+      )
+    );
+  }
+
+  // Use the smart recommendation algorithm on the filtered books
+  const allGenres = [...new Set(filteredBooks.map((book) => book.genre))];
+  const allTags = [...new Set(filteredBooks.flatMap((book) => book.tags))];
+  const allKeywords = [...new Set(filteredBooks.flatMap((book) => book.keywords))];
+
+  const userBooks = filteredBooks.filter((book) =>
+    [...JSON.parse(localStorage.getItem("wishlist") || "[]"), ...JSON.parse(localStorage.getItem("recentlyViewed") || "[]")].includes(book.id)
+  );
+  const userVector = buildUserPreferenceVector(userBooks, allGenres, allTags, allKeywords);
+  const bookVectors = filteredBooks.map((book) =>
+    buildBookFeatureVector(book, allGenres, allTags, allKeywords)
+  );
+
+  const scores = filteredBooks.map((book, i) => ({
+    book,
+    score: cosineSimilarity(userVector, bookVectors[i]),
+  }));
+
+  return scores
+    .sort((a, b) => b.score - a.score)
+    .map((item) => item.book)
     .slice(0, 3);
 }
 
