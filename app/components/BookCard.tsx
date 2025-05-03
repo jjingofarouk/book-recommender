@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Book } from "../lib/books";
@@ -7,18 +8,20 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
+  const [imageSrc, setImageSrc] = useState(book.coverImage || "/covers/default-cover.jpg");
+
   return (
     <Link href={`/books/${book.id}`} className="block">
       <div className="p-4 border border-[var(--foreground)] rounded-lg glassmorphic hover:shadow-lg transition-shadow">
-        {book.coverImage && (
-          <Image
-            src={book.coverImage}
-            alt={`${book.title} cover`}
-            width={150}
-            height={225}
-            className="mx-auto mb-4 rounded"
-          />
-        )}
+        <Image
+          src={imageSrc}
+          alt={`${book.title} cover`}
+          width={150}
+          height={225}
+          className="mx-auto mb-4 rounded"
+          objectFit="cover"
+          onError={() => setImageSrc("/covers/default-cover.jpg")}
+        />
         <h3 className="text-xl font-semibold text-[var(--foreground)] hover:underline">{book.title}</h3>
         <p className="text-sm text-[var(--foreground)]">by {book.author}</p>
         <p className="text-sm text-[var(--foreground)]">Genre: {book.genre}</p>
@@ -39,7 +42,7 @@ export function BookCard({ book }: BookCardProps) {
         <p className="mt-2 text-sm text-[var(--foreground)]"><strong>Cultural Notes:</strong> {book.culturalNotes}</p>
         <button
           onClick={(e) => {
-            e.preventDefault(); // Prevent Link navigation when clicking button
+            e.preventDefault();
             const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
             if (!wishlist.includes(book.id)) {
               wishlist.push(book.id);
