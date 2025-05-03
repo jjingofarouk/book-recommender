@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { RecommendationForm } from "../components/RecommendationForm";
 import { BookCard } from "../components/BookCard";
-import { getRecommendations } from "../lib/book";
+import { getRecommendations } from "../lib/books";
 
 export default function Recommend() {
   const [recommendedBooks, setRecommendedBooks] = useState<any[]>([]);
