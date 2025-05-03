@@ -4,11 +4,14 @@ import { useRouter } from "next/navigation";
 import { BookCard } from "../../components/BookCard";
 import { getBookById, getRelatedBooks } from "../../lib/books";
 
+// Use Next.js's built-in type for dynamic route params
+import type { NextPage } from "next";
+
 interface BookDetailsProps {
   params: { id: string };
 }
 
-export default function BookDetails({ params }: BookDetailsProps) {
+const BookDetails: NextPage<BookDetailsProps> = ({ params }) => {
   const router = useRouter();
   const book = getBookById(parseInt(params.id));
 
@@ -71,4 +74,6 @@ export default function BookDetails({ params }: BookDetailsProps) {
       )}
     </div>
   );
-}
+};
+
+export default BookDetails;
