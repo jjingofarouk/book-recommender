@@ -8,7 +8,7 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
-  const [imageSrc, setImageSrc] = useState(book.coverImage || "/covers/default-cover.jpg");
+  const [imageSrc, setImageSrc] = useState(book.coverImage || "/covers/cover-default.jpeg");
 
   return (
     <Link href={`/books/${book.id}`} className="block">
