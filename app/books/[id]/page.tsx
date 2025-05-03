@@ -1,4 +1,3 @@
-// app/books/[id]/page.tsx
 import BookDetailsClient from "../../../components/BookDetailsClient";
 import { getBookById, getRelatedBooks } from "../../../lib/books";
 
