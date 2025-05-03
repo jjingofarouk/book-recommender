@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { ModeToggle } from "./ModeToggle";
@@ -21,7 +22,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="p-4 sticky top-0 z-20 shadow-md">
+      <nav className="p-4 sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
           {/* Brand Name */}
           <div className="text-xl font-bold">
@@ -34,7 +35,10 @@ export function Navbar() {
           <ul className="hidden md:flex gap-6">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:underline text-sm font-medium text-[var(--text-color)]">
+                <Link
+                  href={item.href}
+                  className="hover:underline text-sm font-medium text-[var(--text-color)]"
+                >
                   {item.label}
                 </Link>
               </li>
@@ -46,7 +50,7 @@ export function Navbar() {
             <button
               className="md:hidden text-2xl text-[var(--text-color)]"
               onClick={toggleSidebar}
-              aria-label="Toggle sidebar menu"
+              aria-label={isSidebarOpen ? "Close sidebar menu" : "Open sidebar menu"}
             >
               {isSidebarOpen ? <FaTimes /> : <FaBars />}
             </button>
@@ -57,12 +61,14 @@ export function Navbar() {
 
       {/* Sidebar for Mobile */}
       <div
-        className={`sidebar fixed top-0 right-0 h-full w-64 z-30 transform transition-transform duration-300 ${
+        className={`sidebar fixed top-0 right-0 h-full w-64 z-50 bg-white dark:bg-gray-900 transform transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex justify-between items-center p-4">
-          <span className="text-xl font-bold text-[var(--text-color)]">LitShelf</span>
+          <span className="text-xl font-bold text-[var(--text-color)]">
+            LitShelf
+          </span>
           <button
             onClick={toggleSidebar}
             className="text-2xl text-[var(--text-color)]"
@@ -89,7 +95,7 @@ export function Navbar() {
       {/* Overlay for Sidebar */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={toggleSidebar}
         />
       )}
