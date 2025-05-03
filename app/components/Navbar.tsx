@@ -1,3 +1,4 @@
+// app/components/Navbar.tsx
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -8,7 +9,6 @@ export function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // Respect system preference or saved theme
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
@@ -37,14 +37,11 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="p-4 sticky top-0 z-20 shadow-md">
+      <nav className="p-4 sticky top-0 z-20 shadow-md glassmorphic">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
-          {/* Brand Name */}
           <div className="text-xl font-bold">
             <Link href="/">LitShelf</Link>
           </div>
-
-          {/* Desktop Menu */}
           <ul className="hidden md:flex gap-6">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -54,8 +51,6 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-
-          {/* Mobile Menu Button and Theme Toggle */}
           <div className="flex items-center gap-4">
             <button
               className="md:hidden text-2xl"
@@ -74,10 +69,8 @@ export function Navbar() {
           </div>
         </div>
       </nav>
-
-      {/* Sidebar for Mobile */}
       <div
-        className={`sidebar fixed top-0 right-0 h-full w-64 z-30 transform transition-transform duration-300 ${
+        className={`sidebar fixed top-0 right-0 h-full w-64 z-30 transform transition-transform duration-300 glassmorphic ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -105,8 +98,6 @@ export function Navbar() {
           ))}
         </ul>
       </div>
-
-      {/* Overlay for Sidebar */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
