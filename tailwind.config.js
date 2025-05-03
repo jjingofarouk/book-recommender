@@ -20,5 +20,22 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.backdrop-blur-sm': {
+          'backdrop-filter': 'blur(4px)',
+        },
+        '.backdrop-blur': {
+          'backdrop-filter': 'blur(8px)',
+        },
+        '.backdrop-blur-md': {
+          'backdrop-filter': 'blur(12px)',
+        },
+        '.backdrop-blur-lg': {
+          'backdrop-filter': 'blur(16px)',
+        },
+      });
+    },
+  ],
 };
