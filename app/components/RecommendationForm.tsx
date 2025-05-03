@@ -1,3 +1,4 @@
+// app/components/RecommendationForm.tsx
 "use client";
 import { useState } from "react";
 import { getPersonalizedRecommendations } from "../lib/books";
@@ -47,84 +48,84 @@ export function RecommendationForm({
         placeholder="Genre"
         value={genre}
         onChange={(e) => setGenre(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="text"
         placeholder="Author"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="text"
         placeholder="Language"
         value={language}
         onChange={(e) => setLanguage(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="text"
         placeholder="Country"
         value={country}
         onChange={(e) => setCountry(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="text"
         placeholder="Format (e.g., Paperback)"
         value={format}
         onChange={(e) => setFormat(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="text"
         placeholder="Audience (e.g., Adult)"
         value={audience}
         onChange={(e) => setAudience(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="text"
         placeholder="Series"
         value={series}
         onChange={(e) => setSeries(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="number"
         placeholder="Minimum Rating (1-5)"
         value={minRating}
         onChange={(e) => setMinRating(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="number"
         placeholder="Maximum Pages"
         value={maxPages}
         onChange={(e) => setMaxPages(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="number"
         placeholder="Minimum Price"
         value={minPrice}
         onChange={(e) => setMinPrice(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="number"
         placeholder="Maximum Price"
         value={maxPrice}
         onChange={(e) => setMaxPrice(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <input
         type="text"
         placeholder="Keywords (comma-separated)"
         value={keywords}
         onChange={(e) => setKeywords(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-transparent text-[var(--foreground)]"
+        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
       <button
         type="submit"
