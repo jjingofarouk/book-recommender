@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -8,7 +8,7 @@
   --text-color: #171717;
 }
 
-@media (preflekers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -16,7 +16,6 @@
   }
 }
 
-/* Support next-themes class-based dark mode */
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
