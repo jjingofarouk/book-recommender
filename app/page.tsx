@@ -29,7 +29,7 @@ export default function Home() {
         <div className="text-center">
           <Image
             className="dark:invert mx-auto"
-            src="/litshelf-logo.svg"
+            src="/favicom.ico"
             alt="LitShelf logo"
             width={180}
             height={38}
