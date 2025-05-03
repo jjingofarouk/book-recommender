@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { FaHome, FaBook, FaStar, FaHeart, FaBars, FaTimes, FaXTwitter, FaGithub } from "react-icons/fa";
+import { FaHome, FaBook, FaStar, FaHeart, FaBars, FaTimes, FaTwitter, FaGithub } from "react-icons/fa";
 
 interface MenuItem {
   href: string;
@@ -143,7 +143,7 @@ export function Navbar() {
                 className="p-2 rounded-full bg-white text-foreground hover:bg-white/90 transition-colors"
                 aria-label="Follow us on X"
               >
-                <FaXTwitter className="w-4 h-4" />
+                <FaTwitter className="w-4 h-4" />
               </a>
               <a
                 href="https://github.com"
