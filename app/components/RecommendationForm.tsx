@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { getPersonalizedRecommendations } from "../lib/books";
+import { useState, useEffect } from "react";
+import { getPersonalizedRecommendations, getBooks } from "../lib/books";
 
 export function RecommendationForm({
   onSubmit,
@@ -9,128 +9,93 @@ export function RecommendationForm({
 }) {
   const [genre, setGenre] = useState("");
   const [author, setAuthor] = useState("");
-  const [language, setLanguage] = useState("");
-  const [country, setCountry] = useState("");
-  const [format, setFormat] = useState("");
-  const [audience, setAudience] = useState("");
-  const [series, setSeries] = useState("");
-  const [minRating, setMinRating] = useState("");
+  const [minRating, setMinRating] = useState(4); // Default to 4/5
   const [maxPages, setMaxPages] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [keywords, setKeywords] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Get unique genres for dropdown
+  const uniqueGenres = [...new Set(getBooks().map((book) => book.genre))];
+
+  // Load user preferences from local storage (wishlist or recently viewed)
+  useEffect(() => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const viewed = JSON.parse(localStorage.getItem("recentlyViewed") || "[]");
+    const userBooks = getBooks().filter((book) =>
+      [...wishlist, ...viewed].includes(book.id)
+    );
+
+    if (userBooks.length > 0) {
+      const mostCommonGenre = userBooks
+        .reduce((acc, book) => {
+          acc[book.genre] = (acc[book.genre] || 0) + 1;
+          return acc;
+        }, {} as Record<string, number>)
+        .sort((a, b) => b[1] - a[1])[0];
+      setGenre(mostCommonGenre?.[0] || "");
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const preferences = {
       genre: genre || undefined,
       author: author || undefined,
-      language: language || undefined,
-      country: country || undefined,
-      format: format || undefined,
-      audience: audience || undefined,
-      series: series || undefined,
       minRating: minRating ? Number(minRating) : undefined,
       maxPages: maxPages ? Number(maxPages) : undefined,
-      minPrice: minPrice ? Number(minPrice) : undefined,
-      maxPrice: maxPrice ? Number(maxPrice) : undefined,
-      keywords: keywords ? keywords.split(",").map((k) => k.trim()) : undefined,
     };
+
+    // Enhance with inferred preferences
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    const userBooks = getBooks().filter((book) => wishlist.includes(book.id));
+    if (userBooks.length > 0) {
+      const avgPages = userBooks.reduce((sum, book) => sum + book.pageCount, 0) / userBooks.length;
+      preferences.maxPages = preferences.maxPages || Math.ceil(avgPages * 1.2); // 20% more than average
+    }
+
     const books = getPersonalizedRecommendations(preferences);
     onSubmit(books);
+    setLoading(false);
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">
-      <input
-        type="text"
-        placeholder="Genre"
+      <label className="text-[var(--foreground)]">Select Genre</label>
+      <select
         value={genre}
         onChange={(e) => setGenre(e.target.value)}
         className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
+      >
+        <option value="">Any Genre</option>
+        {uniqueGenres.map((g) => (
+          <option key={g} value={g}>
+            {g}
+          </option>
+        ))}
+      </select>
+
       <input
         type="text"
-        placeholder="Author"
+        placeholder="Author (optional)"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
         className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
-      <input
-        type="text"
-        placeholder="Language"
-        value={language}
-        onChange={(e) => setLanguage(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
-      <input
-        type="text"
-        placeholder="Country"
-        value={country}
-        onChange={(e) => setCountry(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
-      <input
-        type="text"
-        placeholder="Format (e.g., Paperback)"
-        value={format}
-        onChange={(e) => setFormat(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
-      <input
-        type="text"
-        placeholder="Audience (e.g., Adult)"
-        value={audience}
-        onChange={(e) => setAudience(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
-      <input
-        type="text"
-        placeholder="Series"
-        value={series}
-        onChange={(e) => setSeries(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
+
       <input
         type="number"
-        placeholder="Minimum Rating (1-5)"
-        value={minRating}
-        onChange={(e) => setMinRating(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
-      <input
-        type="number"
-        placeholder="Maximum Pages"
+        placeholder="Max Pages (optional)"
         value={maxPages}
         onChange={(e) => setMaxPages(e.target.value)}
         className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       />
-      <input
-        type="number"
-        placeholder="Minimum Price"
-        value={minPrice}
-        onChange={(e) => setMinPrice(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
-      <input
-        type="number"
-        placeholder="Maximum Price"
-        value={maxPrice}
-        onChange={(e) => setMaxPrice(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
-      <input
-        type="text"
-        placeholder="Keywords (comma-separated)"
-        value={keywords}
-        onChange={(e) => setKeywords(e.target.value)}
-        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
-      />
+
       <button
         type="submit"
         className="rounded-full bg-[var(--foreground)] text-[var(--background)] px-6 py-2 font-medium glassmorphic"
+        disabled={loading}
       >
-        Get Recommendations
+        {loading ? "Loading..." : "Get Recommendations"}
       </button>
     </form>
   );
