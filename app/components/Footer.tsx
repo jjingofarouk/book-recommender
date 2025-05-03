@@ -53,15 +53,15 @@ export function Footer() {
           <h3 className="text-lg font-semibold">Follow Us</h3>
           <div className="flex gap-4">
             <a
-              href="https://twitter.com"
+              href="https://x.com"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
-              aria-label="Follow us on Twitter"
+              aria-label="Follow us on X"
             >
               <Image
-                src="/twitter.svg"
-                alt="Twitter icon"
+                src="/x.svg"
+                alt="X icon"
                 width={24}
                 height={24}
                 className="invert"
