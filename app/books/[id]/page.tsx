@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import { BookCard } from "../../components/BookCard";
 import { getBookById, getRelatedBooks } from "../../lib/books";
 
-export default function BookDetails({ params }: { params: { id: string } }) {
+interface BookDetailsProps {
+  params: { id: string };
+}
+
+export default function BookDetails({ params }: BookDetailsProps) {
   const router = useRouter();
   const book = getBookById(parseInt(params.id));
 
@@ -19,7 +23,7 @@ export default function BookDetails({ params }: { params: { id: string } }) {
   }, [book]);
 
   if (!book) {
-    return <div className="p-8 text-center">Book not found</div>;
+    return <div className="p-8 text-center text-[var(--foreground)]">Book not found</div>;
   }
 
   const relatedBooks = getRelatedBooks(book.genre, book.id);
@@ -27,10 +31,10 @@ export default function BookDetails({ params }: { params: { id: string } }) {
   return (
     <div className="py-12 px-4 sm:px-8 lg:px-16">
       <div className="max-w-4xl mx-auto glassmorphic p-8">
-        <h1 className="text-3xl font-bold">{book.title}</h1>
+        <h1 className="text-3xl font-bold text-[var(--foreground)]">{book.title}</h1>
         <p className="text-lg text-[var(--gray-light)]">by {book.author}</p>
         <p className="text-lg text-[var(--gray-light)]">Genre: {book.genre}</p>
-        <p className="mt-4">{book.description}</p>
+        <p className="mt-4 text-[var(--foreground)]">{book.description}</p>
         <button
           onClick={() => {
             const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
@@ -44,12 +48,12 @@ export default function BookDetails({ params }: { params: { id: string } }) {
         >
           Add to Wishlist
         </button>
-        <h2 className="text-2xl font-semibold mt-8">Reviews</h2>
+        <h2 className="text-2xl font-semibold mt-8 text-[var(--foreground)]">Reviews</h2>
         <div className="mt-4 space-y-4">
           {book.reviews.map((review, index) => (
             <div key={index} className="p-4 border border-[var(--gray-light)] rounded-lg glassmorphic">
-              <p className="font-semibold">{review.user}</p>
-              <p>{review.comment}</p>
+              <p className="font-semibold text-[var(--foreground)]">{review.user}</p>
+              <p className="text-[var(--foreground)]">{review.comment}</p>
               <p className="text-sm text-[var(--gray-light)]">Rating: {review.rating}/5</p>
             </div>
           ))}
@@ -57,7 +61,7 @@ export default function BookDetails({ params }: { params: { id: string } }) {
       </div>
       {relatedBooks.length > 0 && (
         <div className="mt-12 max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-4">Related Books</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-[var(--foreground)]">Related Books</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {relatedBooks.map((relatedBook) => (
               <BookCard key={relatedBook.id} book={relatedBook} />
