@@ -20,18 +20,18 @@ export function ModeToggle() {
         onClick={toggleDropdown}
         aria-label="Toggle theme"
       >
-        <FiSun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <FiMoon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <FiSun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-[var(--foreground)]" />
+        <FiMoon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-[var(--foreground)]" />
       </button>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+        <div className="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-[var(--background)] ring-1 ring-black ring-opacity-5">
           <div className="py-1">
             <button
               onClick={() => {
                 setTheme("light");
                 setIsOpen(false);
               }}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="block w-full text-left px-4 py-2 text-sm text-[var(--foreground)] hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               Light
             </button>
@@ -40,7 +40,7 @@ export function ModeToggle() {
                 setTheme("dark");
                 setIsOpen(false);
               }}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="block w-full text-left px-4 py-2 text-sm text-[var(--foreground)] hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               Dark
             </button>
@@ -49,7 +49,7 @@ export function ModeToggle() {
                 setTheme("system");
                 setIsOpen(false);
               }}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="block w-full text-left px-4 py-2 text-sm text-[var(--foreground)] hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               System
             </button>
