@@ -48,7 +48,7 @@ export function BookCard({ book }: BookCardProps) {
               alert("Added to wishlist!");
             }
           }}
-          className="mt-2 text-sm text-[var(--foreground)] hover:underline"
+          className="mt-2 text-sm text-[var(--text-color)] hover:underline"
         >
           Add to Wishlist
         </button>
