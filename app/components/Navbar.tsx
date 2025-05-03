@@ -1,8 +1,15 @@
-
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
+import { FaHome, FaBook, FaStar, FaHeart, FaUser, FaEnvelope, FaLink, FaNewspaper } from "react-icons/fa"; // Import icons
+
+// Define the type for menu items
+interface MenuItem {
+  href: string;
+  label: string;
+  icon: string | React.ReactNode; // Allow string (for emojis) or React component (for icons)
+  action?: () => void; // Optional action for buttons
+}
 
 export function Navbar() {
   const [theme, setTheme] = useState("light");
@@ -25,7 +32,6 @@ export function Navbar() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    // Close other menus when opening main menu
     if (!isOpen) {
       setShowMoreMenu(false);
       setShowNewsletter(false);
@@ -34,7 +40,6 @@ export function Navbar() {
 
   const toggleMoreMenu = () => {
     setShowMoreMenu(!showMoreMenu);
-    // Close other menus when opening more menu
     if (!showMoreMenu) {
       setIsOpen(false);
       setShowNewsletter(false);
@@ -43,32 +48,30 @@ export function Navbar() {
 
   const toggleNewsletter = () => {
     setShowNewsletter(!showNewsletter);
-    // Close other menus when opening newsletter
     if (!showNewsletter) {
       setIsOpen(false);
       setShowMoreMenu(false);
     }
   };
 
-  const mainMenuItems = [
-    { href: "/", label: "Home", icon: "🏠" },
-    { href: "/books", label: "Books", icon: "📚" },
-    { href: "/recommend", label: "Recommend", icon: "⭐" },
-    { href: "/wishlist", label: "Wishlist", icon: "❤️" },
+  const mainMenuItems: MenuItem[] = [
+    { href: "/", label: "Home", icon: <FaHome /> },
+    { href: "/books", label: "Books", icon: <FaBook /> },
+    { href: "/recommend", label: "Recommend", icon: <FaStar /> },
+    { href: "/wishlist", label: "Wishlist", icon: <FaHeart /> },
   ];
 
-  const moreMenuItems = [
-    { href: "/about", label: "About", icon: "👤" },
-    { href: "/contact", label: "Contact", icon: "✉️" },
-    { href: "#", label: "Social", icon: "🔗", action: toggleMoreMenu },
-    { href: "#", label: "Newsletter", icon: "📧", action: toggleNewsletter },
+  const moreMenuItems: MenuItem[] = [
+    { href: "/about", label: "About", icon: <FaUser /> },
+    { href: "/contact", label: "Contact", icon: <FaEnvelope /> },
+    { href: "#", label: "Social", icon: <FaLink />, action: toggleMoreMenu },
+    { href: "#", label: "Newsletter", icon: <FaNewspaper />, action: toggleNewsletter },
   ];
 
   return (
     <>
       <nav className="p-4 bg-[var(--foreground)] text-[var(--background)] glassmorphic sticky top-0 z-10">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
-          {/* Mobile menu button */}
           <button 
             className="md:hidden p-2"
             onClick={toggleMenu}
@@ -76,11 +79,7 @@ export function Navbar() {
           >
             {isOpen ? "✕" : "☰"}
           </button>
-
-          {/* Title/Logo for desktop */}
           <div className="hidden md:block font-semibold text-lg">LitShelf</div>
-
-          {/* Desktop horizontal menu */}
           <div className="hidden md:block">
             <ul className="flex gap-6">
               {[...mainMenuItems, ...moreMenuItems.slice(0, 2)].map((item) => (
@@ -92,8 +91,6 @@ export function Navbar() {
               ))}
             </ul>
           </div>
-
-          {/* Theme toggle button - always visible */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-[var(--background)] text-[var(--foreground)] glassmorphic"
@@ -104,7 +101,6 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile dropdown main menu */}
       {isOpen && (
         <div className="absolute top-16 left-0 right-0 bg-[var(--foreground)] text-[var(--background)] shadow-lg md:hidden z-30">
           <ul className="flex flex-col p-4">
@@ -137,7 +133,6 @@ export function Navbar() {
         </div>
       )}
       
-      {/* Social Media popup */}
       {showMoreMenu && (
         <div className="absolute bottom-20 left-0 right-0 bg-[var(--foreground)] text-[var(--background)] shadow-lg md:bottom-auto md:top-16 md:right-4 md:left-auto md:w-64 rounded-lg z-30">
           <div className="p-4">
@@ -150,7 +145,6 @@ export function Navbar() {
                 className="hover:underline p-2"
                 aria-label="Follow us on X"
               >
-                {/* Placeholder for X icon */}
                 <div className="bg-[var(--background)] text-[var(--foreground)] rounded-full w-10 h-10 flex items-center justify-center">X</div>
               </a>
               <a
@@ -160,7 +154,6 @@ export function Navbar() {
                 className="hover:underline p-2"
                 aria-label="Follow us on GitHub"
               >
-                {/* Placeholder for GitHub icon */}
                 <div className="bg-[var(--background)] text-[var(--foreground)] rounded-full w-10 h-10 flex items-center justify-center">GH</div>
               </a>
             </div>
@@ -168,7 +161,6 @@ export function Navbar() {
         </div>
       )}
 
-      {/* Newsletter popup */}
       {showNewsletter && (
         <div className="absolute bottom-20 left-0 right-0 bg-[var(--foreground)] text-[var(--background)] shadow-lg md:bottom-auto md:top-16 md:right-4 md:left-auto md:w-80 rounded-lg z-30">
           <div className="p-4">
@@ -192,36 +184,33 @@ export function Navbar() {
         </div>
       )}
 
-      {/* Mobile bottom tab bar */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden bg-[var(--foreground)] text-[var(--background)] glassmorphic py-2 px-4 z-20 shadow-lg">
         <ul className="flex justify-around">
           {mainMenuItems.map((item) => (
             <li key={item.href}>
               <Link 
                 href={item.href} 
-                className="flex flex-col items-center gap-1"
+                className="flex flex-col items-center gap-1 p-2"
               >
-                <span className="text-lg">{item.icon}</span>
+                <span className="text-xl">{item.icon}</span>
                 <span className="text-xs">{item.label}</span>
               </Link>
             </li>
           ))}
           <li>
             <button 
-              className="flex flex-col items-center gap-1"
+              className="flex flex-col items-center gap-1 p-2"
               onClick={toggleMoreMenu}
             >
-              <span className="text-lg">⋯</span>
+              <span className="text-xl">⋯</span>
               <span className="text-xs">More</span>
             </button>
           </li>
         </ul>
       </div>
 
-      {/* Desktop Footer - hidden on mobile since it's integrated into the navigation */}
       <footer className="hidden md:block p-6 bg-[var(--foreground)] text-[var(--background)] glassmorphic mt-16">
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Navigation Links */}
           <div className="flex flex-col gap-2">
             <h3 className="text-lg font-semibold">Explore</h3>
             {[...mainMenuItems, ...moreMenuItems.slice(0, 2)].map((item) => (
@@ -230,8 +219,6 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-
-          {/* Newsletter Signup */}
           <div className="flex flex-col gap-2">
             <h3 className="text-lg font-semibold">Stay Updated</h3>
             <p className="text-sm">Subscribe to our newsletter for book recommendations.</p>
@@ -250,8 +237,6 @@ export function Navbar() {
               </button>
             </div>
           </div>
-
-          {/* Social Media */}
           <div className="flex flex-col gap-2">
             <h3 className="text-lg font-semibold">Follow Us</h3>
             <div className="flex gap-4">
@@ -262,7 +247,6 @@ export function Navbar() {
                 className="hover:underline"
                 aria-label="Follow us on X"
               >
-                {/* Replaced Image component with text to avoid Image import complications */}
                 <div className="bg-[var(--background)] text-[var(--foreground)] rounded-full w-8 h-8 flex items-center justify-center">X</div>
               </a>
               <a
@@ -272,7 +256,6 @@ export function Navbar() {
                 className="hover:underline"
                 aria-label="Follow us on GitHub"
               >
-                {/* Replaced Image component with text to avoid Image import complications */}
                 <div className="bg-[var(--background)] text-[var(--foreground)] rounded-full w-8 h-8 flex items-center justify-center">GH</div>
               </a>
             </div>
