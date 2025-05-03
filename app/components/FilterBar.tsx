@@ -1,4 +1,3 @@
-// app/components/FilterBar.tsx
 "use client";
 import { useEffect, useState } from "react";
 
@@ -48,7 +47,7 @@ export function FilterBar({
     <div className="flex flex-wrap gap-4">
       <select
         onChange={(e) => onGenreChange(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
+        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       >
         <option value="">All Genres</option>
         {genres.map((genre) => (
@@ -59,7 +58,7 @@ export function FilterBar({
       </select>
       <select
         onChange={(e) => onAuthorChange(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
+        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       >
         <option value="">All Authors</option>
         {authors.map((author) => (
@@ -70,7 +69,7 @@ export function FilterBar({
       </select>
       <select
         onChange={(e) => onLanguageChange(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
+        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       >
         <option value="">All Languages</option>
         {languages.map((language) => (
@@ -81,7 +80,7 @@ export function FilterBar({
       </select>
       <select
         onChange={(e) => onCountryChange(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
+        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       >
         <option value="">All Countries</option>
         {countries.map((country) => (
@@ -92,7 +91,7 @@ export function FilterBar({
       </select>
       <select
         onChange={(e) => onFormatChange(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
+        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       >
         <option value="">All Formats</option>
         {formats.map((format) => (
@@ -103,7 +102,7 @@ export function FilterBar({
       </select>
       <select
         onChange={(e) => onAudienceChange(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
+        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       >
         <option value="">All Audiences</option>
         {audiences.map((audience) => (
@@ -114,7 +113,7 @@ export function FilterBar({
       </select>
       <select
         onChange={(e) => onSeriesChange(e.target.value)}
-        className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
+        className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)]"
       >
         <option value="">All Series</option>
         {series.map((s) => (
@@ -129,14 +128,14 @@ export function FilterBar({
           placeholder="Min Price"
           value={minPrice}
           onChange={(e) => setMinPrice(Number(e.target.value))}
-          className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] w-24"
+          className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] w-24"
         />
         <input
           type="number"
           placeholder="Max Price"
           value={maxPrice}
           onChange={(e) => setMaxPrice(Number(e.target.value))}
-          className="p-3 border border-[var(--gray-light)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] w-24"
+          className="p-3 border border-[var(--foreground)] rounded-lg glassmorphic bg-[var(--background)] text-[var(--foreground)] w-24"
         />
       </div>
     </div>
